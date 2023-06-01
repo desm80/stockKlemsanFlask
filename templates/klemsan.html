@@ -41,23 +41,15 @@
         </div>
       </div>
 
-      {% if result %}
-      <div class="container">
-        <div class="row ">
-          <div class="col-sm">
-          </div>
-          <div class="col-sm">
-            <p class="text-center">
-            {% for stock in result %}
-                <p>  {{ stock }}  </p>
-            {% endfor %}
-            </p>
-          </div>
-          <div class="col-sm">
-          </div>
-        </div>
-      </div>
-      {% endif %}
+        {% if result %}
+            <div class="container">
+                <div class="col-md-12 text-center">
+                    {% for stock in result %}
+                        <p>  {{ stock }}  </p>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
     </section>
   </main>
 {% endblock %}
