@@ -2,9 +2,9 @@ from http import HTTPStatus
 
 from flask import Flask, render_template
 
-from forms import PartNumberForm, DownloadForm
+from forms import DownloadForm, PartNumberForm
 from settings import Config
-from utils import get_stock, download_stocks
+from utils import download_stocks, get_stock
 
 app = Flask(__name__)
 app.config.from_object(Config)

@@ -1,13 +1,12 @@
 import os
 from zipfile import ZipFile
 
-
 import requests
 import xlrd
 from openpyxl import load_workbook
 from openpyxl.workbook import Workbook
 
-from settings import URL_EPARH, BASE_DIR, URL_GLOBAL
+from settings import BASE_DIR, URL_EPARH, URL_GLOBAL
 
 
 def clear_folder(folder):
