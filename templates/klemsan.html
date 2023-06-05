@@ -45,7 +45,10 @@
             <div class="container">
                 <div class="col-md-12 text-center">
                     {% for stock in result %}
-                        <p>  {{ stock }}  </p>
+                        <p>  Артику {{ stock.part_number }}  в количестве
+                            {{ stock.amount|replace(" ", "") }} на складе {{
+                                    stock.store|title() }}
+                        </p>
                     {% endfor %}
                 </div>
             </div>
