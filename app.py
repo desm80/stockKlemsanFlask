@@ -38,6 +38,10 @@ def klemsan_view():
 
 @app.route('/download', methods=['GET', 'POST'])
 def download_view():
+    """
+    Рендеринг формы с кнопкой для загрузки складских остатков и вывода
+    сообщения, если загрузка прошла успешно.
+    """
     form = DownloadForm()
     if form.validate_on_submit():
         download_stocks()
@@ -68,6 +72,9 @@ def internal_error(error):
 
 
 def xlsx_to_base(files):
+    """
+    Читает данные из файлов и создает БД по товарным остаткам.
+    """
     objects = []
     for file in files:
         wb = load_workbook(file)
