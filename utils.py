@@ -69,5 +69,3 @@ def download_stocks():
         './downloads/eparh.xlsx')
     open_xls_as_xlsx('./downloads/global.xls').save(
         './downloads/global.xlsx')
-
-
