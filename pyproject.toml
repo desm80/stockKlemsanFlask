@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "klemsanStock"
+version = "0.1.0"
+description = "FlaskApp downloading xls files, convert them to db, search stock by part number"
+authors = ["Smirnov Denis"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+flask = "2.2.5"
+flask-wtf = "1.1.1"
+openpyxl = "3.1.2"
+python-dotenv = "0.21.1"
+flask-sqlalchemy = "2.5.1"
+flask-migrate = "3.1.0"
+sqlalchemy = "1.4.29"
+requests = "2.31.0"
+xlrd = "2.0.1"
+zipp = "3.15.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
