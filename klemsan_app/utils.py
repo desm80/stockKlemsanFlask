@@ -5,9 +5,12 @@ import requests
 import xlrd
 from openpyxl import Workbook, load_workbook
 
-from klemsan_app import db
+from klemsan_app import db, make_celery
 from klemsan_app.models import KlemsanStock
 from settings import URL_EPARH, BASE_DIR, URL_GLOBAL
+
+
+celery = make_celery()
 
 
 def clear_folder(folder):
@@ -31,6 +34,7 @@ def open_xls_as_xlsx(filename):
     return book1
 
 
+@celery.task(name='download_files')
 def download_stocks():
     filename_eparh = URL_EPARH.split('/')[-1]
     downloads_dir = BASE_DIR / 'downloads'
@@ -52,12 +56,14 @@ def download_stocks():
         './downloads/global.xlsx')
 
 
+@celery.task(name='files_to_base')
 def xlsx_to_base(files):
     """
     Читает данные из файлов и создает БД по товарным остаткам.
     """
     objects = []
     for file in files:
+
         wb = load_workbook(file)
         sheet = wb[wb.sheetnames[0]]
         store = file.split('/')[-1].split('.')[0]
