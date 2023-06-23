@@ -8,7 +8,7 @@ BASE_URL = os.getenv('BASE_URL', default='http://127.0.0.1:5000/')
 
 
 class Config(object):
-    FLASK_APP = os.getenv('FLASK_APP', default='klemsan')
+    FLASK_APP = os.getenv('FLASK_APP', default='klemsan_app')
     SQLALCHEMY_DATABASE_URI = os.getenv(
         'DATABASE_URI', default='sqlite:///db.sqlite3'
     )

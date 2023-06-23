@@ -17,6 +17,7 @@ sqlalchemy = "1.4.29"
 requests = "2.31.0"
 xlrd = "2.0.1"
 zipp = "3.15.0"
+celery = {extras = ["redis"], version = "^5.3.1"}
 
 
 [build-system]

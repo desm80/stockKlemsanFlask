@@ -3,35 +3,16 @@ from zipfile import ZipFile
 
 import requests
 import xlrd
-from openpyxl.workbook import Workbook
+from openpyxl import Workbook, load_workbook
 
-from settings import BASE_DIR, URL_EPARH, URL_GLOBAL
+from klemsan_app import db
+from klemsan_app.models import KlemsanStock
+from settings import URL_EPARH, BASE_DIR, URL_GLOBAL
 
 
 def clear_folder(folder):
     for f in os.listdir(folder):
         os.remove(os.path.join(folder, f))
-
-
-# def get_stock(part_number):
-#     result = []
-#     wb = load_workbook('./downloads/eparh.xlsx')
-#     sheet = wb[wb.sheetnames[0]]
-#     wb2 = load_workbook('./downloads/global.xlsx')
-#     sheet2 = wb2[wb.sheetnames[0]]
-#     for item in sheet.values:
-#         if str(item[0]).find(str(part_number)) != -1:
-#             result.append(
-#                 f'Артикул {item[0]} в количестве {item[-1]} на складе ЭПАРХ')
-#
-#     for item in sheet2.values:
-#         if str(item[0]).replace('.', '').find(str(part_number)) != -1:
-#             result.append(f'Артикул {item[0]} в количестве '
-#                       f'{str(item[-1]).replace(" ", "")} на '
-#                       f'складе Глобал')
-#     wb.close()
-#     wb2.close()
-#     return result
 
 
 def open_xls_as_xlsx(filename):
@@ -69,3 +50,25 @@ def download_stocks():
         './downloads/eparh.xlsx')
     open_xls_as_xlsx('./downloads/global.xls').save(
         './downloads/global.xlsx')
+
+
+def xlsx_to_base(files):
+    """
+    Читает данные из файлов и создает БД по товарным остаткам.
+    """
+    objects = []
+    for file in files:
+        wb = load_workbook(file)
+        sheet = wb[wb.sheetnames[0]]
+        store = file.split('/')[-1].split('.')[0]
+        for item in sheet.values:
+            objects.append(
+                KlemsanStock(
+                    part_number=str(item[0]).replace('.', ''),
+                    amount=item[-1],
+                    store=store
+                )
+            )
+        wb.close()
+    db.session.add_all(objects)
+    db.session.commit()
