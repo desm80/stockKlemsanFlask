@@ -32,8 +32,7 @@ def download_view():
         download_stocks()
         db.drop_all()
         db.create_all()
-        xlsx_to_base(['./downloads/eparh.xlsx',
-                      './downloads/global.xlsx'])
+        xlsx_to_base()
         message = 'Остатки успешно загружены!'
 
         return render_template('download.html', form=form, message=message)

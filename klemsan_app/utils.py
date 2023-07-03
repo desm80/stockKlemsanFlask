@@ -34,7 +34,7 @@ def open_xls_as_xlsx(filename):
     return book1
 
 
-@celery.task(name='download_files')
+# @celery.task(name='download_files')
 def download_stocks():
     filename_eparh = URL_EPARH.split('/')[-1]
     downloads_dir = BASE_DIR / 'downloads'
@@ -56,13 +56,13 @@ def download_stocks():
         './downloads/global.xlsx')
 
 
-@celery.task(name='files_to_base')
-def xlsx_to_base(files):
+# @celery.task(name='files_to_base')
+def xlsx_to_base():
     """
     Читает данные из файлов и создает БД по товарным остаткам.
     """
     objects = []
-    for file in files:
+    for file in ['./downloads/eparh.xlsx', './downloads/global.xlsx']:
 
         wb = load_workbook(file)
         sheet = wb[wb.sheetnames[0]]
